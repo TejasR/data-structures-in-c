@@ -1,0 +1,4 @@
+language: c
+compiler: gcc
+before_script: sudo apt-get install check
+script: make && make install
