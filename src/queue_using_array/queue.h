@@ -1,3 +1,6 @@
+#ifndef QUEUE_H
+#define QUEUE_H
+
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -18,3 +21,5 @@ int enqueue( queue *, int );
 int dequeue( queue * );
 int peek( queue * );
 int init( queue * );
+
+#endif // QUEUE_H
