@@ -15,9 +15,6 @@ int dequeue( queue *q ) {
     if ( q == NULL ) {
         return NULL_POINTER_ABORT;
     }
-    if ( q->q_rear == -1 ) {
-        return QUEUE_UNDERFLOW;
-    }
     if ( q->q_rear < q->q_front ) {
         return QUEUE_UNDERFLOW;
     }
