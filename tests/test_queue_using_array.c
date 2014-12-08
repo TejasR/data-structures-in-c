@@ -17,6 +17,18 @@ START_TEST( test_normal_ops )
 
     ck_assert_int_eq( dequeue( &q ), 10 );
     ck_assert_int_eq( dequeue( &q ), 12 );
+
+    init( &q );
+    enqueue( &q, 10 );
+    ck_assert_int_eq( dequeue( &q ), 10 );
+    enqueue( &q, 12 );
+    enqueue( &q, 14 );
+    ck_assert_int_eq( dequeue( &q ), 12 );
+    enqueue( &q, 16 );
+    ck_assert_int_eq( dequeue( &q ), 14 );
+    enqueue( &q, 18 );
+    ck_assert_int_eq( dequeue( &q ), 16 );
+    ck_assert_int_eq( dequeue( &q ), 18 );
 }
 END_TEST
 
