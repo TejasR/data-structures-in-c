@@ -14,7 +14,7 @@ START_TEST( test_push_pop_normal_ops )
 {
     push( &st, 10 );
     push( &st, 12 );
-    ck_assert_int_eq( pop( &st ), 12 );
+    ck_assert_int_eq( (int)pop( &st ), (int)12 );
     ck_assert_int_eq( pop( &st ), 10 );
 }
 END_TEST
@@ -22,7 +22,7 @@ END_TEST
 START_TEST( test_pop_underflow )
 {
     push( &st, 12 );
-    ck_assert_int_eq( pop( &st ), 12 );
+    ck_assert_int_eq( (int)pop( &st ), (int)12 );
     ck_assert_int_eq( pop( &st ), -2 );
 }
 END_TEST
