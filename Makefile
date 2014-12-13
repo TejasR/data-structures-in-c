@@ -11,4 +11,4 @@ queue: ./tests/test_queue_using_array.c ./src/queue_using_array/queue.c
 	$(CC) $(CFLAGS) $? $(LFLAGS) -o $@
 
 install: stack queue
-	./stack && ./queue
+	./queue || ./stack
