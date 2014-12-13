@@ -1,40 +1,45 @@
-#include <check.h>
 #include "../src/stack_using_array/stack.h"
+#include <check.h>
 
-stack st;
+stack *st;
 
 void setup() {
-    init(&st);
+    st = (stack*)malloc(sizeof(stack)*1);
+    init(st);
 }
 
 void teardown() {
+    if ( st != NULL ) {
+        free( st );
+        st = NULL;
+    }
 }
 
 START_TEST( test_push_pop_normal_ops )
 {
-    push( &st, 10 );
-    push( &st, 12 );
-    ck_assert_int_eq( (int)pop( &st ), (int)12 );
-    ck_assert_int_eq( pop( &st ), 10 );
+    push( st, 10 );
+    push( st, 12 );
+    ck_assert_int_eq( pop( st ), 12 );
+    ck_assert_int_eq( pop( st ), 10 );
 }
 END_TEST
 
 START_TEST( test_pop_underflow )
 {
-    push( &st, 12 );
-    ck_assert_int_eq( (int)pop( &st ), (int)12 );
-    ck_assert_int_eq( pop( &st ), -2 );
+    push( st, 12 );
+    ck_assert_int_eq( pop( st ), 12 );
+    ck_assert_int_eq( pop( st ), -2 );
 }
 END_TEST
 
 START_TEST( test_push_overflow )
 {
-    push( &st, 2 );
-    push( &st, 3 );
-    push( &st, 4 );
-    push( &st, 5 );
-    push( &st, 6 );
-    ck_assert_int_eq( push( &st, 7 ), -3 );
+    push( st, 2 );
+    push( st, 3 );
+    push( st, 4 );
+    push( st, 5 );
+    push( st, 6 );
+    ck_assert_int_eq( push( st, 7 ), -3 );
 }
 END_TEST
 
