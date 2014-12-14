@@ -18,7 +18,10 @@ int dequeue( queue *q ) {
     if ( q->q_rear < q->q_front ) {
         return QUEUE_UNDERFLOW;
     }
-    return q->q_array[q->q_front++];
+    int item;
+    item = q->q_array[q->q_front];
+    q->q_front++;
+    return item;
 }
 
 int peek( queue *q ) {
