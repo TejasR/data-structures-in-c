@@ -25,10 +25,14 @@ int peek( const stack *st ) {
     if ( st == NULL ) {
         return NULL_POINTER_ABORT;
     }
+    if ( st->st_top == -1 ) {
+        return UNDERFLOW_ABORT;
+    }
     int i;
     for ( i = 0; i <= st->st_top; i++ ) {
         printf("%d\t",st->st_array[i]);
     }
+    printf("\n");
     return 0;
 }
 

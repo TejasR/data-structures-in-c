@@ -6,8 +6,8 @@
 
 #define SIZE 5
 #define NULL_POINTER_ABORT -1
-#define QUEUE_OVERFLOW -2
-#define QUEUE_UNDERFLOW -3
+#define QUEUE_UNDERFLOW -2
+#define QUEUE_OVERFLOW -3
 
 struct queue {
     int q_array[SIZE];

@@ -1,92 +1,109 @@
+#include "minunit.h"
 #include "../src/stack_using_array/stack.h"
-#include <check.h>
 
-stack *st;
+stack st;
+int tests_run = 0;
 
-void setup() {
-    st = (stack*)malloc(sizeof(stack)*1);
-    init(st);
+static char* test_normal_ops() {
+    init(&st);
+
+    push( &st, 10 );
+    push( &st, 12 );
+
+    mu_assert( "error, pop(&st) != 10", pop( &st ) == 12 );
+    mu_assert( "error, pop(&st) != 12", pop( &st ) == 10 );
+
+    init( &st );
+    push( &st, 10 );
+    mu_assert( "error, pop(&st) != 10", pop( &st ) == 10 );
+    push( &st, 12 );
+    push( &st, 14 );
+    mu_assert( "error, pop(&st) != 10", pop( &st ) == 14 );
+    push( &st, 16 );
+    mu_assert( "error, pop(&st) != 10", pop( &st ) == 16 );
+    push( &st, 18 );
+    mu_assert( "error, pop(&st) != 10", pop( &st ) == 18 );
+    mu_assert( "error, pop(&st) != 10", pop( &st ) == 12 );
+    return 0;
 }
 
-void teardown() {
-    if ( st != NULL ) {
-        free( st );
-        st = NULL;
-    }
+static char* test_normal_peek() {
+    init(&st);
+
+    push( &st, 12 );
+    mu_assert( "error, peek(&st) != 0", peek( &st ) == 0 );
+    push( &st, 14 );
+    mu_assert( "error, peek(&st) != 0", peek( &st ) == 0 );
+    push( &st, 16 );
+    mu_assert( "error, peek(&st) != 0", peek( &st ) == 0 );
+    push( &st, 18 );
+    mu_assert( "error, peek(&st) != 0", peek( &st ) == 0 );
+    push( &st, 10 );
+    mu_assert( "error, peek(&st) != 0", peek( &st ) == 0 );
+    push( &st, 8 );
+    mu_assert( "error, peek(&st) != 0", peek( &st ) == 0 );
+
+    pop(&st);
+    mu_assert( "error, peek(&st) != 0", peek( &st ) == 0 );
+    pop(&st);
+    mu_assert( "error, peek(&st) != 0", peek( &st ) == 0 );
+    pop(&st);
+    mu_assert( "error, peek(&st) != 0", peek( &st ) == 0 );
+    pop(&st);
+    mu_assert( "error, peek(&st) != 0", peek( &st ) == 0 );
+    pop(&st);
+    mu_assert( "error, peek(&st) != -2", peek( &st ) == -2 );
+    pop(&st);
+    mu_assert( "error, peek(&st) != -2", peek( &st ) == -2 );
+    return 0;
 }
 
-START_TEST( test_push_pop_normal_ops )
-{
-    push( st, 10 );
-    push( st, 12 );
-    ck_assert_int_eq( pop( st ), 12 );
-    ck_assert_int_eq( pop( st ), 10 );
+static char* test_abnormal_push() {
+    init(&st);
+
+    push( &st, 12 );
+    push( &st, 14 );
+    push( &st, 16 );
+    push( &st, 18 );
+    push( &st, 10 );
+    mu_assert( "error, push( &st, 15 ) != -3", push( &st, 15 ) == -3 );
+    return 0;
 }
-END_TEST
 
-START_TEST( test_pop_underflow )
-{
-    push( st, 12 );
-    ck_assert_int_eq( pop( st ), 12 );
-    ck_assert_int_eq( pop( st ), -2 );
+static char* test_abnormal_pop() {
+    init(&st);
+
+    push( &st, 12 );
+    mu_assert( "error, pop( &st ) != 12", pop( &st ) == 12 );
+    mu_assert( "error, pop( &st ) != -2", pop( &st ) == -2 );
+    return 0;
 }
-END_TEST
 
-START_TEST( test_push_overflow )
-{
-    push( st, 2 );
-    push( st, 3 );
-    push( st, 4 );
-    push( st, 5 );
-    push( st, 6 );
-    ck_assert_int_eq( push( st, 7 ), -3 );
+static char* test_null() {
+    mu_assert( "error, push( NULL, 12 ) != -1", push( NULL, 12 ) == -1 );
+    mu_assert( "error, pop( NULL ) != -1", pop( NULL ) == -1 );
+    mu_assert( "error, init( NULL ) != -1", init( NULL ) == -1 );
+    mu_assert( "error, peek( NULL ) != -1", peek( NULL ) == -1 );
+    return 0;
 }
-END_TEST
 
-START_TEST( test_null_pointer )
-{
-    ck_assert_int_eq( init( NULL ), -1 );
-    ck_assert_int_eq( push( NULL, 10 ), -1 );
-    ck_assert_int_eq( pop( NULL ), -1 );
-    ck_assert_int_eq( peek( NULL ), -1 );
-}
-END_TEST
-
-Suite * stack_suite(void)
-{
-    Suite *s;
-    TCase *tc_core, *tc_abnormal;
-
-    s = suite_create("Stack");
-
-    /* Core test case */
-    tc_core = tcase_create("Core");
-    /* Abnormal test case */
-    tc_abnormal = tcase_create("Abnormal");
-
-    tcase_add_checked_fixture(tc_core, setup, teardown);
-    tcase_add_checked_fixture(tc_abnormal, setup, teardown);
-    tcase_add_test(tc_core, test_push_pop_normal_ops);
-    tcase_add_test(tc_abnormal, test_push_overflow);
-    tcase_add_test(tc_abnormal, test_pop_underflow);
-    tcase_add_test(tc_abnormal, test_null_pointer);
-    suite_add_tcase(s, tc_core);
-    suite_add_tcase(s, tc_abnormal);
-
-    return s;
+static char* all_tests() {
+    mu_run_test(test_normal_ops);
+    mu_run_test(test_normal_peek);
+    mu_run_test(test_abnormal_pop);
+    mu_run_test(test_abnormal_push);
+    mu_run_test(test_null);
+    return 0;
 }
 
 int main()
 {
-    int number_failed;
-    Suite *s;
-    SRunner *sr;
-
-    s = stack_suite();
-    sr = srunner_create(s);
-
-    srunner_run_all(sr, CK_NORMAL);
-    number_failed = srunner_ntests_failed(sr);
-    srunner_free(sr);
-    return (number_failed == 0) ? EXIT_SUCCESS : EXIT_FAILURE;
+    char *result = all_tests();
+    if (result != 0) {
+        printf("%s\n", result);
+    } else {
+        printf("ALL TESTS PASSED\n");
+    }
+    printf("Tests run: %d\n", tests_run);
+    return result != 0;
 }
