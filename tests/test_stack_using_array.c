@@ -5,14 +5,6 @@ stack st;
 int tests_run = 0;
 
 static char* test_normal_ops() {
-    init(&st);
-
-    push( &st, 10 );
-    push( &st, 12 );
-
-    mu_assert( "error, pop(&st) != 10", pop( &st ) == 12 );
-    mu_assert( "error, pop(&st) != 12", pop( &st ) == 10 );
-
     init( &st );
     push( &st, 10 );
     mu_assert( "error, pop(&st) != 10", pop( &st ) == 10 );

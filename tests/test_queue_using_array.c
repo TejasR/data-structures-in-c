@@ -5,14 +5,6 @@ queue q;
 int tests_run = 0;
 
 static char* test_normal_ops() {
-    init(&q);
-
-    enqueue( &q, 10 );
-    enqueue( &q, 12 );
-
-    mu_assert( "error, dequeue(&q) != 10", dequeue( &q ) == 10 );
-    mu_assert( "error, dequeue(&q) != 12", dequeue( &q ) == 12 );
-
     init( &q );
     enqueue( &q, 10 );
     mu_assert( "error, dequeue(&q) != 10", dequeue( &q ) == 10 );
