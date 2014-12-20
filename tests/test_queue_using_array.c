@@ -10,12 +10,12 @@ static char* test_normal_ops() {
     mu_assert( "error, dequeue(&q) != 10", dequeue( &q ) == 10 );
     enqueue( &q, 12 );
     enqueue( &q, 14 );
-    mu_assert( "error, dequeue(&q) != 10", dequeue( &q ) == 12 );
+    mu_assert( "error, dequeue(&q) != 12", dequeue( &q ) == 12 );
     enqueue( &q, 16 );
-    mu_assert( "error, dequeue(&q) != 10", dequeue( &q ) == 14 );
+    mu_assert( "error, dequeue(&q) != 14", dequeue( &q ) == 14 );
     enqueue( &q, 18 );
-    mu_assert( "error, dequeue(&q) != 10", dequeue( &q ) == 16 );
-    mu_assert( "error, dequeue(&q) != 10", dequeue( &q ) == 18 );
+    mu_assert( "error, dequeue(&q) != 16", dequeue( &q ) == 16 );
+    mu_assert( "error, dequeue(&q) != 18", dequeue( &q ) == 18 );
     return 0;
 }
 
