@@ -13,4 +13,4 @@ circular_queue: ./src/queue_using_array/circular_queue.c ./src/queue_using_array
 	$(CC) $(CFLAGS) ./tests/test_queue_using_array.c ./src/queue_using_array/circular_queue.c -o $@
 
 install: stack queue circular_queue
-	./queue && ./stack && ./circular_queue
+	valgrind ./queue && valgrind ./stack && valgrind ./circular_queue
