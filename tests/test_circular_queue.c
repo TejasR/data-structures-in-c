@@ -1,5 +1,5 @@
 #include "minunit.h"
-#include "../src/queue_using_array/circular_queue.h"
+#include "../src/queue/using_array/circular_queue/circular_queue.h"
 
 queue q;
 int tests_run = 0;

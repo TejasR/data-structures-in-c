@@ -1,5 +1,5 @@
 #include "minunit.h"
-#include "../src/stack_using_array/stack.h"
+#include "../src/stack/using_array/stack.h"
 
 stack st;
 int tests_run = 0;
