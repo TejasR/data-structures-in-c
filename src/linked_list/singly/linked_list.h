@@ -1,3 +1,6 @@
+#ifndef LINKED_LIST_H
+#define LINKED_LIST_H
+
 #include <stdio.h>
 #include <malloc.h>
 
@@ -14,3 +17,5 @@ int delete_head(node **);
 int delete_tail(node **);
 node* create_node();
 int free_node(node **);
+
+#endif // LINKED_LIST_H

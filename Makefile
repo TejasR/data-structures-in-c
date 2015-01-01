@@ -17,3 +17,6 @@ singly: ./src/linked_list/singly/linked_list.c ./src/linked_list/singly/linked_l
 
 install: stack_ua queue_ua circular_queue_ua
 	./queue_ua && ./stack_ua && ./circular_queue_ua && ./singly
+
+clean:
+	rm queue_ua stack_ua circular_queue_ua singly
