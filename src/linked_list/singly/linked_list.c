@@ -84,7 +84,7 @@ int delete_tail(node **first) {
         printf("Nothing to free\n");
         return -3;
     }
-    node *previous;
+    node *previous = NULL;
     node *current = *first;
     while (current->next != NULL) {
         previous = current;
