@@ -18,7 +18,7 @@ singly: ./src/linked_list/singly/linked_list.c ./src/linked_list/singly/linked_l
 stack_ull: ./src/stack/linked_list/stack.c ./src/stack/linked_list/stack.h ./src/stack/linked_list/linked_list.h ./src/stack/linked_list/linked_list.c ./tests/test_stack_using_linked_list.c 
 	$(CC) $(CFLAGS) ./src/stack/linked_list/stack.c ./src/stack/linked_list/linked_list.c ./tests/test_stack_using_linked_list.c -o $@
 
-install: stack_ua queue_ua circular_queue_ua stack_ull
+install: stack_ua queue_ua circular_queue_ua stack_ull single
 	./queue_ua && ./stack_ua && ./circular_queue_ua && ./singly && ./stack_ull
 
 clean:
