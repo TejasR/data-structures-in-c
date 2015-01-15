@@ -1,0 +1,2 @@
+The display_contents file uses single redirection operator instead of double redirection, so that the any changes made to the linked list will not affect the original linked list.
+The const keyword does not allow you to modify the contents of the linked list if that variable is used.
