@@ -1,0 +1,19 @@
+#ifndef LINKED_LIST_H
+#define LINKED_LIST_H
+
+#include <stdio.h>
+#include <malloc.h>
+
+struct node {
+    struct node *next;
+    int item;
+};
+
+typedef struct node node;
+
+int insert_head(node **, int);
+int delete_tail(node **);
+node* create_node();
+int free_node(node **);
+
+#endif // LINKED_LIST_H
