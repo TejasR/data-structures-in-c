@@ -23,7 +23,7 @@ int insert_head(node **first, int item) {
 
 int insert_tail(node **first, int item) {
     if (first == NULL) {
-        printf("\n");
+        printf("NULL node has been passed\n");
         return -1;
     }
     node *temp = create_node();
@@ -98,17 +98,4 @@ int delete_tail(node **first) {
     int item = current->item;
     free_node(&current);
     return item;
-}
-
-int display_contents(const node *first) {
-    if (!first) {
-        puts("NULL has been passed");
-        return -1;
-    }
-    while (!first) {
-        printf("%d\t", first->item);
-        first = first->next;
-    }
-    printf("\n");
-    return 0;
 }

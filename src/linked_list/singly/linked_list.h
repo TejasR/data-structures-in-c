@@ -15,7 +15,6 @@ int insert_head(node **, int);
 int insert_tail(node **, int);
 int delete_head(node **);
 int delete_tail(node **);
-int display_contents(const node *);
 node* create_node();
 int free_node(node **);
 
