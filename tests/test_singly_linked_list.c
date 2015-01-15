@@ -91,23 +91,23 @@ static char* test_delete_tail_normal_op() {
     return 0;
 }
 
-static char* test_display_contents() {
-    node *first = NULL;
-    /* Insert elements and check */
-    insert_head(&first, 10);
-    display_contents(first);
-    insert_head(&first, 12);
-    insert_tail(&first, 14);
-    insert_tail(&first, 16);
-    display_contents(first);
-    delete_head(&first);
-    display_contents(first);
-    delete_tail(&first);
-    delete_head(&first);
-    delete_tail(&first);
-    display_contents(first);
-    return 0;
-}
+//static char* test_display_contents() {
+//    node *first = NULL;
+//    /* Insert elements and check */
+//    insert_head(&first, 10);
+//    display_contents(&first);
+//    insert_head(&first, 12);
+//    insert_tail(&first, 14);
+//    insert_tail(&first, 16);
+//    display_contents(&first);
+//    delete_head(&first);
+//    display_contents(&first);
+//    delete_tail(&first);
+//    delete_head(&first);
+//    delete_tail(&first);
+//    display_contents(&first);
+//    return 0;
+//}
 //
 //static char* test_insert_at_pos_normal_op() {
 //    node *first = NULL;
@@ -153,12 +153,12 @@ static char* test_display_contents() {
 //}
 
 static char* test_null() {
-    mu_assert("error, NULL passed", insert_head(NULL, 10) == -1);
-    mu_assert("error, NULL passed", insert_tail(NULL, 10) == -1);
-    mu_assert("error, NULL passed", delete_head(NULL) == -1);
-    mu_assert("error, NULL passed", delete_tail(NULL) == -1);
-    mu_assert("error, NULL passed", free_node(NULL) == -1);
-    mu_assert("error, NULL passed", display_contents(NULL) == -1);
+    mu_assert("error, NULL was processed", insert_head(NULL, 10) == -1);
+    mu_assert("error, NULL was processed", insert_tail(NULL, 10) == -1);
+    mu_assert("error, NULL was processed", delete_head(NULL) == -1);
+    mu_assert("error, NULL was processed", delete_tail(NULL) == -1);
+    mu_assert("error, NULL was processed", free_node(NULL) == -1);
+//    mu_assert("error, NULL was processed", display_contents(NULL) == -1);
     return 0;
 }
 
@@ -170,7 +170,7 @@ static char* all_tests() {
     mu_run_test(test_free_node_normal_op);
     mu_run_test(test_delete_head_normal_op);
     mu_run_test(test_delete_tail_normal_op);
-    mu_run_test(test_display_contents);
+//    mu_run_test(test_display_contents);
     mu_run_test(test_null);
     return 0;
 }
