@@ -1,11 +1,11 @@
 #include "linked_list.h"
 
-node* create_node() {
+static node* create_node() {
 	node *newNode = (struct node *)malloc(sizeof(struct node));
 	return newNode;
 }
 
-bool create_head(node **first) {
+static bool create_head(node **first) {
 	node *temp = (node *)malloc(sizeof(node)*1);
 	if (temp == NULL) {
 		puts("Unable to create sentinel node");
@@ -65,16 +65,13 @@ int insert_tail(node **first, int item) {
     return 0;
 }
 
-int free_node(node **first) {
-    if (first == NULL) {
-        puts("NULL node has been passed");
-        return -1;
-    }
+static int free_node(node **first) {
     if (*first == NULL) {
         puts("Nothing to free");
         return -3;
     }
     free(*first);
+	*first = NULL;
     return 0;
 }
 
@@ -124,4 +121,24 @@ int delete_tail(node **first) {
     free_node(&current);
     (*first)->item--;
     return item;
+}
+
+void display_contents(const node *first) {
+	if (!first) {
+		puts("The list has not been initialised with sentinel node");
+		return;
+	}
+	/* Ignoring the sentinel node, as it is not part of the data */
+	int num_data = first->item;
+	first = first->next;
+	int i = 0;
+	/* This for loop will not print the correct data if the header info is not updated properly in the various functions.
+	 * Can use a while loop that executes until `first->next` is NULL
+	 */
+	for (;i < num_data;i++) {
+		printf("%d\t",first->item);
+		first=first->next;
+	}
+	printf("\n");
+	return;
 }

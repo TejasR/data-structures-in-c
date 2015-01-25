@@ -1,6 +1,6 @@
 #include "linked_list.h"
 
-node* create_node() {
+static node* create_node() {
 	node *newNode = (struct node *)malloc(sizeof(struct node));
 	return newNode;
 }
@@ -21,16 +21,13 @@ int insert_head(node **first, int item) {
 	return 0;
 }
 
-int free_node(node **first) {
-    if (first == NULL) {
-        printf("NULL node has been passed\n");
-        return -1;
-    }
+static int free_node(node **first) {
     if (*first == NULL) {
         printf("Nothing to free\n");
         return -3;
     }
     free(*first);
+	*first = NULL;
     return 0;
 }
 

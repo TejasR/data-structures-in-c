@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <malloc.h>
+#include <stdbool.h>
 
 struct node {
     struct node *left;
@@ -16,7 +17,7 @@ int insert_head(node **, int);
 int insert_tail(node **, int);
 int delete_head(node **);
 int delete_tail(node **);
-node* create_node();
-int free_node(node **);
+bool isempty(const node *);
+void display_contents(const node *first);
 
 #endif // LINKED_LIST_H

@@ -15,8 +15,6 @@ int insert_head(node **, int);
 int insert_tail(node **, int);
 int delete_head(node **);
 int delete_tail(node **);
-bool create_head(node **);
-node *create_node();
-int free_node(node **);
+void display_contents(const node*);
 
 #endif //LINKED_LIST_H

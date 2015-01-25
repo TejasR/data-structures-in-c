@@ -1,6 +1,6 @@
 #include "linked_list.h"
 
-node* create_node() {
+static node* create_node() {
 	node *newNode = (struct node *)malloc(sizeof(struct node));
 	return newNode;
 }
@@ -45,16 +45,13 @@ int insert_tail(node **first, int item) {
     return 0;
 }
 
-int free_node(node **first) {
-    if (first == NULL) {
-        printf("NULL node has been passed\n");
-        return -1;
-    }
+static int free_node(node **first) {
     if (*first == NULL) {
         printf("Nothing to free\n");
         return -3;
     }
     free(*first);
+	*first = NULL;
     return 0;
 }
 
@@ -98,4 +95,25 @@ int delete_tail(node **first) {
     int item = current->item;
     free_node(&current);
     return item;
+}
+
+bool isempty(const node *first) {
+	if (!first) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+void display_contents(const node *first) {
+	if (!first) {
+		puts("Null has been passed");
+		return;
+	}
+	while (first->next) {
+		printf("%d\t",first->item);
+		first=first->next;
+	}
+	printf("\n");
+	return;
 }

@@ -13,7 +13,5 @@ typedef struct node node;
 
 int insert_head(node **, int);
 int delete_head(node **);
-node* create_node();
-int free_node(node **);
 
 #endif // LINKED_LIST_H
