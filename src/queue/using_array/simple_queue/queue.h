@@ -9,17 +9,11 @@
 #define QUEUE_UNDERFLOW -2
 #define QUEUE_OVERFLOW -3
 
-struct queue {
-    int q_array[SIZE];
-    int q_front;
-    int q_rear;
-};
-
+struct queue;
 typedef struct queue queue;
 
-int enqueue( queue *, int );
-int dequeue( queue * );
-int peek( queue * );
-int init( queue * );
+int enqueue(queue **, int);
+int dequeue(queue *);
+int peek(const queue *);
 
 #endif // QUEUE_H

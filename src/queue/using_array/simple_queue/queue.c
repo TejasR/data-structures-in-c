@@ -1,13 +1,28 @@
 #include "queue.h"
 
-int enqueue( queue *q, int item ) {
-    if ( q == NULL ) {
+struct queue {
+    int q_array[SIZE];
+    int q_front;
+    int q_rear;
+};
+
+static int init(queue **);
+
+int enqueue( queue **q, int item ) {
+    if (q == NULL) {
+		printf("Bad pointer\n");
         return NULL_POINTER_ABORT;
     }
-    if ( q->q_rear == SIZE-1 ) {
+	if ((*q) == NULL) {
+		if (init(q) != 0) {
+			printf("Memory allocation failed\n");
+			return NULL_POINTER_ABORT;
+		}
+	}
+    if ((*q)->q_rear == SIZE-1) {
         return QUEUE_OVERFLOW;
     }
-    q->q_array[++q->q_rear] = item;
+    (*q)->q_array[++(*q)->q_rear] = item;
     return 0;
 }
 
@@ -24,7 +39,7 @@ int dequeue( queue *q ) {
     return item;
 }
 
-int peek( queue *q ) {
+int peek(const queue *q ) {
     if ( q == NULL ) {
         return NULL_POINTER_ABORT;
     }
@@ -42,11 +57,12 @@ int peek( queue *q ) {
     return 0;
 }
 
-int init( queue *q ) {
-    if ( q == NULL ) {
+static int init( queue **q ) {
+	*q = (queue *)malloc(sizeof(queue));
+    if ( *q == NULL ) {
         return NULL_POINTER_ABORT;
     }
-    q->q_rear = -1;
-    q->q_front = 0;
+    (*q)->q_rear = -1;
+    (*q)->q_front = 0;
     return 0;
 }
