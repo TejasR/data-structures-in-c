@@ -31,4 +31,4 @@ install: stack_ua queue_ua circular_queue_ua stack_ull singly queue_ull doubly s
 	./stack_ua && ./queue_ua && ./circular_queue_ua && ./stack_ull && ./singly && ./queue_ull && ./doubly && ./sentinel
 
 clean:
-	rm queue_ua stack_ua circular_queue_ua singly stack_ull queue_ull doubly
+	rm queue_ua stack_ua circular_queue_ua singly stack_ull queue_ull doubly sentinel

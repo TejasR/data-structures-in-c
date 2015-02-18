@@ -17,9 +17,7 @@ int tests_run = 0;
 static char* test_insert_head_normal_op() {
     node *first = NULL;
     mu_assert("error, unable to insert item into the list", insert_head(&first, 10) == 0);
-    mu_assert("error, item not inserted at the head", first->item == 10);
     mu_assert("error, unable to insert item into the list", insert_head(&first, 12) == 0);
-    mu_assert("error, item not inserted at the head", first->item == 12);
     delete_head(&first);
     delete_head(&first);
     return 0;
@@ -28,13 +26,7 @@ static char* test_insert_head_normal_op() {
 static char* test_insert_tail_normal_op() {
     node *first = NULL;
     mu_assert("error, unable to insert item into the list", insert_tail(&first, 10) == 0);
-    mu_assert("error, item cannot be found", first->item == 10);
     mu_assert("error, unable to insert item into the list", insert_tail(&first, 12) == 0);
-    node *temp = first;
-    while (temp->right != NULL) {
-        temp = temp->right;
-    }
-    mu_assert("error, item cannot be found", temp->item == 12);
     delete_head(&first);
     delete_head(&first);
     return 0;
@@ -48,14 +40,14 @@ static char* test_insert_tail_normal_op() {
     	insert_head(&first, 10);
     	mu_assert("error, unable to free the memory being used by the node", free_node(&first) == 0);
     	first = NULL;
-    	mu_assert("error, unable to free the memory being used by the node", free_node(&first) == -3);
+    	mu_assert("error, unable to free the memory being used by the node", free_node(&first) == -1 && errno == EINVAL);
     	return 0;
 	}
 */
 
 static char* test_delete_head_normal_op() {
     node *first = NULL;
-    mu_assert("error, unable to free the memory being used by the node", delete_tail(&first) == -3);
+    mu_assert("error, unable to free the memory being used by the node", delete_tail(&first) == -1 && errno == EINVAL);
     insert_head(&first, 10);
     insert_head(&first, 12);
     mu_assert("error, unable to free the memory being used by the node", delete_head(&first) == 12);
@@ -67,7 +59,7 @@ static char* test_delete_head_normal_op() {
 
 static char* test_delete_tail_normal_op() {
     node *first = NULL;
-    mu_assert("error, unable to free the memory being used by the node", delete_tail(&first) == -3);
+    mu_assert("error, unable to free the memory being used by the node", delete_tail(&first) == -1 && errno == EINVAL);
     insert_head(&first, 10);
     insert_head(&first, 12);
     mu_assert("error, unable to free the memory being used by the node", delete_tail(&first) == 10);
@@ -106,10 +98,10 @@ static char* test_display_contents() {
 }
 
 static char* test_null() {
-    mu_assert("error, NULL passed", insert_head(NULL, 10) == -1);
-    mu_assert("error, NULL passed", insert_tail(NULL, 10) == -1);
-    mu_assert("error, NULL passed", delete_head(NULL) == -1);
-    mu_assert("error, NULL passed", delete_tail(NULL) == -1);
+    mu_assert("error, NULL passed", insert_head(NULL, 10) == -1 && errno == EINVAL);
+    mu_assert("error, NULL passed", insert_tail(NULL, 10) == -1 && errno == EINVAL);
+    mu_assert("error, NULL passed", delete_head(NULL) == -1 && errno == EINVAL);
+    mu_assert("error, NULL passed", delete_tail(NULL) == -1 && errno == EINVAL);
     return 0;
 }
 

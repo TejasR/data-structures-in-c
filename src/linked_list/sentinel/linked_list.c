@@ -1,5 +1,10 @@
 #include "linked_list.h"
 
+struct node {
+    struct node *next;
+    int item;
+};
+
 static node* create_node() {
 	node *newNode = (struct node *)malloc(sizeof(struct node));
 	return newNode;

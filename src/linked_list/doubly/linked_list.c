@@ -1,21 +1,28 @@
 #include "linked_list.h"
 
+struct node {
+    struct node *left;
+    struct node *right;
+    int item;
+};
+
 static node* create_node() {
 	node *newNode = (node *)malloc(sizeof(node));
-    if (newNode == NULL)
-        puts ("What the hell?");
 	return newNode;
 }
 
 int insert_head(node **first, int item) {
+	errno = 0;
     if (first == NULL) {
         printf("NULL node has been passed\n");
+		errno = EINVAL;
         return -1;
     }
     node *temp = create_node();
     if (temp == NULL) {
         printf("No free space in memory\n");
-        return -2;
+		errno = ENOMEM;
+        return -1;
     }
     temp->left = NULL;
     temp->right = *first;
@@ -28,14 +35,17 @@ int insert_head(node **first, int item) {
 }
 
 int insert_tail(node **first, int item) {
+	errno = 0;
     if (first == NULL) {
         printf("NULL node has been passed\n");
+		errno = EINVAL;
         return -1;
     }
     node *temp = create_node();
     if (temp == NULL) {
         printf("No free space in memory\n");
-        return -2;
+		errno = ENOMEM;
+        return -1;
     }
     temp->item = item;
     temp->right = NULL;
@@ -54,9 +64,11 @@ int insert_tail(node **first, int item) {
 }
 
 static int free_node(node **first) {
+	errno = 0;
     if (*first == NULL) {
         printf("Nothing to free\n");
-        return -3;
+		errno = EINVAL;
+        return -1;
     }
     free(*first);
 	*first = NULL;
@@ -64,13 +76,16 @@ static int free_node(node **first) {
 }
 
 int delete_head(node **first) {
+	errno = 0;
     if (first == NULL) {
         printf("NULL node has been passed\n");
+		errno = EINVAL;
         return -1;
     }
     if (*first == NULL) {
         printf("Nothing to free\n");
-        return -3;
+		errno = EINVAL;
+        return -1;
     }
     node *temp = *first;
     (*first) = (*first)->right;
@@ -84,13 +99,16 @@ int delete_head(node **first) {
 }
 
 int delete_tail(node **first) {
+	errno = 0;
     if (first == NULL) {
         printf("NULL node has been passed\n");
+		errno = EINVAL;
         return -1;
     }
     if (*first == NULL) {
         printf("Nothing to free\n");
-        return -3;
+		errno = EINVAL;
+        return -1;
     }
     node *previous = NULL;
     node *current = *first;
@@ -110,6 +128,7 @@ int delete_tail(node **first) {
 }
 
 bool isempty(const node *first) {
+	errno = 0;
 	if (!first) {
 		return true;
 	} else {
@@ -118,8 +137,10 @@ bool isempty(const node *first) {
 }
 
 void display_contents(const node *first) {
+	errno = 0;
 	if (!first) {
 		puts("Null has been passed");
+		errno = EINVAL;
 		return;
 	}
 	while (first->right) {

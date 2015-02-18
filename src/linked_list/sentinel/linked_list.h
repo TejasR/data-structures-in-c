@@ -4,11 +4,7 @@
 #include<stdbool.h>
 #include <malloc.h>
 
-struct node {
-    struct node *next;
-    int item;
-};
-
+struct node;
 typedef struct node node;
 
 int insert_head(node **, int);
